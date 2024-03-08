@@ -6,33 +6,93 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
+     if (profile.active) {
+      if (reason !== undefined){
+      profile.active = false;
+      profile.reason = reason;
+      return profile;
+
+     } else {
+      return 'confirm status manually'
+     }
+
+    } else {
+      profile.active = true;
+      delete profile.reason;
+      return profile;
+    }
 
     }
+  
+   
+
+
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return 'invalid coordinates'
+      }
 
+      const value = grid [y-1][x-1];
+
+      if (value === "🟥") {
+        return "🟥 💀";
+      } else if (value === "🟦") {
+        return "🟦 🥳";
+      }
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      for (let prop in obj) {
+        if (prop.length > 9) {
+          return 'shorten all prop names to 9 chars or less';
 
+        }
+      }
+      for (let prop in obj) {
+        if (obj[prop] === 0) {
+          obj[prop] = false;
+        }
+        else if (obj[prop] === 1) {
+          obj[prop] = true;
+        }
+        else if (obj[prop] === null) {
+          delete obj[prop];
+        }
+      }
+      return obj;
     }
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+if(!text || forbidden.length === 0) {
+  return text;
+}
+for (const word of forbidden) {
+  const regex = new RegExp(`\\b${word}\\b`, 'gi');
+  text = text.replace(regex, 'x'.repeat(word.length));
+}
+return text;
 
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
     function normalizePhoneNumber(num) {
+const areaCode = num.substring(0,3);
+const prefix = num.substring(3,6);
+const lineNumber = num.substring(6);
+const formattedNumber = `(${areaCode}) ${prefix}-${lineNumber}`
 
+return formattedNumber;
     }
 
     // 👉 CHALLENGE 6 (bonus, NOT graded)
     function diceRolls() {
 
     }
+
 
     // 🧪 DO NOT make any changes below this line ===================
     globalThis.challengeVersion = 1
